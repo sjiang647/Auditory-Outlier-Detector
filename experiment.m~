@@ -17,6 +17,7 @@ rng('shuffle');
 numTrial = 10;
 outlierRange = [6, 8, 10, 12];
 outlierPos = 1;
+toneLength = 0:(1/44100):.300;
 test = toneLength(1:end-1);
 tonePause = 0.1;
 toneFrequency = 0;
@@ -43,18 +44,15 @@ surrDistST = [-6,-4,-2,2,4,6];
 
 % surrTonesSTs = zeros(1,length(surrDistST));
 
-toneLength = 0:(1/44100):.300;
 for midiVal = 1:128
     toneFrequency = 440*2^((midiVal - 69)/12);
     midiTones = sin(2*pi* toneFrequency * test);
 end
 handle = PsychPortAudio('Open', [], [], 0, 44100,2);
 PsychPortAudio('FillBuffer', handle, midiTones);
-PsychPortAudio('Start', handle,1,0,1);
+PsychPortAudio('Start', hnadle,1,0,1)
 WaitSecs(.300);
-PsychPortAudio('Stop', handle);
-PsychPortAudio('Close', handle);
-
+PsychPortAudio('Stop'
 % offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 % onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 

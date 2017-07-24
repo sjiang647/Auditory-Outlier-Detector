@@ -4,19 +4,26 @@ clear all;
 close all;
 clc;
 
-%% General Setups (vars, tone ramp, screen, etc.)
+%% General Setups (variables, tone ramp, screen, etc.)
 
 % Screen('Preference', 'SkipSyncTests', 1);
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
+% window_w = rect(3);
+% window_h = rect(4); 
+% 
+% x1 = window_w/2;
+% y1 = window_h/2;
+
 rng('shuffle');
 
 numTrial = 10;
 numTones = 7;
-outlierRange = [6 10 14 16];
-toneLength = 0.2;
+outlierRange = [6, 8, 10, 12];
+toneLength = 0:1/44100:.300;
 tonePause = 0.1;
+toneFrequency = 0;
 trialPause = 0.5;
 toneRange = [2 4 6];
 meanPos = 1;
@@ -26,8 +33,8 @@ subjectData = {};
 
 %% Input subject name & save
 
-inputWindow = inputdlg({'Name','Gender','Age'},...
-    'Customer', [1 50; 1 12; 1 7]);
+% inputWindow = inputdlg({'Name','Gender','Age'},...
+%               'Customer', [1 50; 1 12; 1 7]);
 
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
@@ -38,6 +45,12 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
+midiTones = zeros(1,128);
+for midiVal = 1:128
+    toneFrequency = 440*2^((midiVal - 69)/12);
+    midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
+end 
+
 %% Task instructions
 
 %% Counterbalancing
@@ -45,7 +58,14 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 highlow = mod(randperm(numTrial), 2); %1 if high, 0 if low
 outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
-counterbalance = [highlow; outlierDiff; outlierPos];
+
+for i = 1:numTrial
+    if highlow(i) == 0
+    outlierDiff(i) = -outlierDiff(i);
+    end
+end
+
+counterbalancing = [outlierDiff; outlierPos];
 
 %% Repeat #6-#8 nIter times
 

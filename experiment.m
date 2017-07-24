@@ -3,7 +3,6 @@
 clear all;
 close all;
 clc;
-
 %% General Setups (variables, tone ramp, screen, etc.)
 
 % Screen('Preference', 'SkipSyncTests', 1);
@@ -30,7 +29,6 @@ meanPos = 1;
 tones = [];
 data = {};
 subjectData = {};
-
 %% Input subject name & save
 
 % inputWindow = inputdlg({'Name','Gender','Age'},...
@@ -49,6 +47,7 @@ for midiVal = 1:128
     toneFrequency = 440*2^((midiVal - 69)/12);
     midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
 end 
+c;
 
 %% Task instructions 
 %     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);

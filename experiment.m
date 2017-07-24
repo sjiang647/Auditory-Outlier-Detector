@@ -29,12 +29,12 @@ subjectData = {};
 surrDistST = [-6,-4,-2,2,4,6];
 %% Input subject name & save
 
-% inputWindow = inputdlg({'Name','Gender','Age'},...
-%               'Customer', [1 50; 1 12; 1 7]);
-          
+
+inputWindow = inputdlg({'Name','Gender','Age'},...
+    'Customer', [1 50; 1 12; 1 7]);
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
-% 
+%
 % if ~isdir([current, '/Participant_Data/', nameID])
 %     mkdir([current, '/Participant_Data/', nameID]);
 % end
@@ -55,23 +55,38 @@ WaitSecs(.300);
 PsychPortAudio('Stop', handle);
 PsychPortAudio('Close', handle);
 
+<<<<<<< HEAD
 % offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 % onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
-%% Task instructions 
+offset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
+onset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
+
+%% Task instructions
 %     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);
 %     Screen('Flip',window); 
+%% Counterbalancing
+highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
+outlierPos = mod(randperm(numTrial), 7) + 1;
+for i = 1:numTrial
+    if highlow(i) == 0
+    outlierDiff(i) = -outlierDiff(i);
+    end
+end
 
-%% Counterbalancing 
+counterbalancing = [outlierDiff; outlierPos];
 
-%% Actual experiment 
+
+
+%% Actual experiment
 
 %% Asking whether high or low
 
 %% Saving response
 
-%% Repeat #6-#8 nIter times 
+%% Repeat #6-#8 nIter times
 
 %% Save result
 

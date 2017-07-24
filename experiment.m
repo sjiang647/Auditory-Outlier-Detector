@@ -44,6 +44,9 @@ for midiVal = 1:128
     midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
 end 
 
+offset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
+onset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
+
 %% Task instructions 
 
 %     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);

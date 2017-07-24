@@ -13,8 +13,8 @@ clc;
 rng('shuffle');
 
 numTrial = 10;
+numTones = 7;
 outlierRange = [6 10 14 16];
-outlierPos = 1;
 toneLength = 0.2;
 tonePause = 0.1;
 trialPause = 0.5;
@@ -41,24 +41,31 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 %% Task instructions
 
 %% Counterbalancing
-highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+
+highlow = mod(randperm(numTrial), 2); %1 if high, 0 if low
 outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
-counterbalance = [highlow;outlierDiff;outlierPos];
-
+counterbalance = [highlow; outlierDiff; outlierPos];
 
 %% Actual experiment
 
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
 
 for trial = 1:numTrial
-    outlier_data = counterbalance(trial,:);
+    outlierData = counterbalance(trial,:);
+    outlierTone = ((outlierData(1) - 0.5) * 2) * outlierData(2);
     
+    nonOutliers = randsample([-toneRange toneRange], numTones - 1);
+    pos = nonOutliers(3);
+    allTones = [nonOutliers(1:(pos - 1)) outlierTone nonOutliers(pos:end)];
+    toneVectors = midiTones((allTones + meanTone));
     
-    PsychPortAudio('FillBuffer', handle, mytone);
-    PsychPortAudio('Start', handle, 1, 0, 1);
-    WaitSecs(tonePause);
-    PsychPortAudio('Stop', handle);
+    for toneNum = 1:numTones
+        PsychPortAudio('FillBuffer', handle, toneVectors(toneNum));
+        PsychPortAudio('Start', handle, 1, 0, 1);
+        WaitSecs(tonePause);
+        PsychPortAudio('Stop', handle);
+    end
     
     WaitSecs(trialPause);
 end

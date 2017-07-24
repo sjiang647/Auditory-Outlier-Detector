@@ -10,13 +10,20 @@ clc;
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
+% window_w = rect(3);
+% window_h = rect(4); 
+% 
+% x1 = window_w/2;
+% y1 = window_h/2;
+
 rng('shuffle');
 
 numTrial = 10;
 outlierRange = [6 10 14 16];
 outlierPos = 1;
-toneLength = 0.2;
+toneLength = [0:1/44100:.300];
 tonePause = 0.1;
+toneFrequency = 0;
 trialPause = 0.5;
 toneRange = [2 4 6];
 meanPos = 1;
@@ -26,8 +33,8 @@ subjectData = {};
 
 %% Input subject name & save
 
-inputWindow = inputdlg({'Name','Gender','Age'},...
-              'Customer', [1 50; 1 12; 1 7]);
+% inputWindow = inputdlg({'Name','Gender','Age'},...
+%               'Customer', [1 50; 1 12; 1 7]);
           
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
@@ -37,9 +44,15 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 % end
 
 %% Tuning sound (Convert Hz to MIDI semitones)
+midiTones = zeros(1,128);
+for midiVal = 1:128
+    toneFrequency = 440*2^((midiVal - 69)/12);
+    midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
+end 
 
 %% Task instructions 
-
+%     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);
+%     Screen('Flip',window);  
 %% Counterbalancing 
 
 %% Actual experiment 

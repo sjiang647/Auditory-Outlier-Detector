@@ -12,9 +12,9 @@ clc;
 % HideCursor();
 rng('shuffle');
 
-% windowX = rect(3);
-% windowY = rect(4); 
-% center = [windowX/2, windowY/2];
+windowX = rect(3);
+windowY = rect(4); 
+center = [windowX/2, windowY/2];
 numTrial = 10;
 numTones = 7;
 outlierRange = [6, 8, 10, 12];
@@ -50,7 +50,7 @@ end
 
 %% Task instructions
 
-% Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone than the average tone, press the "H" key. If the outlier is a lower tone, press the "L" key.', center(1)-320, 70);
+% Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone than the average tone, press the "H" key. If the outlier is a lower tone, press the "L" key.', center(1)-320, center(2));
 % Screen('Flip', window); 
 
 %% Counterbalancing
@@ -100,8 +100,8 @@ for trial = 1:numTrial
     msg2 = 'Press l if the outlier tone is lower than the mean.';
     
     % Display instructions
-    Screen('DrawText', window, msg1, window_w/2 - 250, window_h/2 - 25);
-    Screen('DrawText', window, msg2, window_w/2 - 250, window_h/2);
+    Screen('DrawText', window, msg1, center(1) - 250, center(2) - 25);
+    Screen('DrawText', window, msg2, center(1) - 250, center(2));
     Screen('Flip', window);
     
     %% Saving response

@@ -1,9 +1,8 @@
-%% Experiment 5: auditory outlier detection
+%% Experiment 5: Auditory Outlier Detection
 
 clear all;
 close all;
 clc;
-
 
 %% General Setups (vars, tone ramp, screen, etc.)
 
@@ -24,7 +23,6 @@ meanPos = 1;
 tones = [];
 data = {};
 subjectData = {};
-
 
 %% Input subject name & save
 

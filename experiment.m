@@ -9,25 +9,37 @@ clc;
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
-rng('shuffle');
 
-% windowX = rect(3);
-% windowY = rect(4); 
-% center = [windowX/2, windowY/2];
+% 
+% window_w = rect(3);
+% window_h = rect(4); 
+% 
+% x1 = window_w/2;
+% y1 = window_h/2;
+
+
 numTrial = 10;
+numTones = 7;
 outlierRange = [6, 8, 10, 12];
 outlierPos = 1;
+<<<<<<< HEAD
+=======
+toneLength = 0:1/44100:.300;
+test = toneLength(1:end-1);
+>>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
 tonePause = 0.1;
 % toneFrequency = 0;
 trialPause = 0.5;
 toneRange = [2 4 6];
+meanRange = 50:80;
 meanPos = 1;
 tones = [];
-data = {};
+data = zeros(1, numTrial);
 subjectData = {};
 surrDistST = [-6,-4,-2,2,4,6];
 %% Input subject name & save
 
+<<<<<<< HEAD
 % 
 % inputWindow = inputdlg({'Name','Gender','Age'},...
 %     'Customer', [1 50; 1 12; 1 7]);
@@ -37,10 +49,23 @@ surrDistST = [-6,-4,-2,2,4,6];
 % if ~isdir([current, '/Participant_Data/', nameID])
 %     mkdir([current, '/Participant_Data/', nameID]);
 % end
+=======
+
+inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
+    'Participant', [1 50; 1 12; 1 7]);
+nameID = upper(inputWindow(1));
+gender = upper(inputWindow(2));
+age = inputWindow(3);
+current = pwd;
+if ~isdir(['./Participant_Data/', nameID{1}])
+    mkdir(['./Participant_Data/', nameID{1}]);
+end
+>>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
 % surrTonesSTs = zeros(1,length(surrDistST));
+<<<<<<< HEAD
 fs = 44100;
 toneLength = [0:(1/fs):.300];
 toneDuration = toneLength(1:end-1);
@@ -49,6 +74,13 @@ rampVector = [1:141];
 numTones = 7;
 
 for midiVal = 1:numTones
+=======
+
+toneLength = 0:(1/44100):.300;
+
+midiTones = zeros(1,128);
+for midiVal = 1:128
+>>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
     toneFrequency = 440*2^((midiVal - 69)/12);
     midiTones = sin(2*pi * toneFrequency * toneDuration);
     
@@ -75,9 +107,11 @@ end
 %     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);
 %     Screen('Flip',window); 
 %% Counterbalancing
-highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+
+highlow = mod(randperm(numTrial), 2); %1 if high, 0 if low
 outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
+
 for i = 1:numTrial
     if highlow(i) == 0
     outlierDiff(i) = -outlierDiff(i);
@@ -86,15 +120,78 @@ end
 
 counterbalancing = [outlierDiff; outlierPos];
 
-
-
-%% Actual experiment
-
-%% Asking whether high or low
-
-%% Saving response
-
 %% Repeat #6-#8 nIter times
 
-%% Save result
+handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
 
+for trial = 1:numTrial
+    %% Actual experiment
+    
+    Screen('Flip', window);
+    
+    % Define mean tone
+    meanTone = randsample(meanRange, 1);
+    
+    % Generate semitone numbers
+    outlierData = counterbalancing(trial,:);
+    nonOutliers = randsample([-toneRange toneRange], numTones - 1);
+    
+    % Randomly shuffle tones to be played
+    pos = nonOutliers(2);
+    allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
+    toneVectors = midiTones(allTones + meanTone, :);
+    
+    % Loop through and play all tones
+    for toneNum = 1:numTones
+        PsychPortAudio('FillBuffer', handle, toneVectors(toneNum));
+        PsychPortAudio('Start', handle, 1, 0, 1);
+        WaitSecs(tonePause);
+        PsychPortAudio('Stop', handle);
+    end
+    
+    %% Asking whether high or low
+    
+    % Give instructions
+    msg1 = 'Press h if the outlier tone is higher than the mean.';
+    msg2 = 'Press l if the outlier tone is lower than the mean.';
+    
+    % Display instructions
+    Screen('DrawText', window, msg1, window_w/2 - 250, window_h/2 - 25);
+    Screen('DrawText', window, msg2, window_w/2 - 250, window_h/2);
+    Screen('Flip', window);
+    
+    %% Saving response
+    
+    KbName('UnifyKeyNames');
+
+    while true
+        % Check which key was pressed
+        [keyDown, secs, keyCode, deltaSecs] = KbCheck(-1); % -1 represents the defaut device
+        key = KbName(find(keyCode));
+        
+        % Record response if one of the two keys is pressed
+        if strcmp(key, 'h')
+            response = 'h';
+            break;
+        end
+        if strcmp(key, 'l')
+            response = 'l';
+            break;
+        end
+    end
+    
+    % Check accuracy of response
+    if (response == 'h' && outlierData(1) > 0) || (response == 'l' && outlierData(1) < 0)
+        data(trial) = 1;
+    end
+    
+    WaitSecs(trialPause);
+end
+
+PsychPortAudio('Close', handle);
+Screen('CloseAll');
+
+%% Save result
+cd(['./Participant_Data/', nameID{1}]);
+save(nameID{1}, gender{1}, age{1});
+cd ..

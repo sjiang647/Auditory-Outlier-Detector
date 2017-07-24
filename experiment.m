@@ -18,7 +18,7 @@ clc;
 rng('shuffle');
 
 numTrial = 10;
-outlierRange = [6 10 14 16];
+outlierRange = [6, 8, 10, 12];
 outlierPos = 1;
 toneLength = [0:1/44100:.300];
 tonePause = 0.1;

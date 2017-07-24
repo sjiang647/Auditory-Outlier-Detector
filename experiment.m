@@ -22,11 +22,10 @@ numTrial = 10;
 numTones = 7;
 outlierRange = [6, 8, 10, 12];
 outlierPos = 1;
-<<<<<<< HEAD
-=======
+
 toneLength = 0:1/44100:.300;
 test = toneLength(1:end-1);
->>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
+
 tonePause = 0.1;
 % toneFrequency = 0;
 trialPause = 0.5;
@@ -39,7 +38,6 @@ subjectData = {};
 surrDistST = [-6,-4,-2,2,4,6];
 %% Input subject name & save
 
-<<<<<<< HEAD
 % 
 % inputWindow = inputdlg({'Name','Gender','Age'},...
 %     'Customer', [1 50; 1 12; 1 7]);
@@ -49,38 +47,31 @@ surrDistST = [-6,-4,-2,2,4,6];
 % if ~isdir([current, '/Participant_Data/', nameID])
 %     mkdir([current, '/Participant_Data/', nameID]);
 % end
-=======
 
-inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
-    'Participant', [1 50; 1 12; 1 7]);
-nameID = upper(inputWindow(1));
-gender = upper(inputWindow(2));
-age = inputWindow(3);
-current = pwd;
-if ~isdir(['./Participant_Data/', nameID{1}])
-    mkdir(['./Participant_Data/', nameID{1}]);
-end
->>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
+
+% inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
+%     'Participant', [1 50; 1 12; 1 7]);
+% nameID = upper(inputWindow(1));
+% gender = upper(inputWindow(2));
+% age = inputWindow(3);
+% current = pwd;
+% if ~isdir(['./Participant_Data/', nameID{1}])
+%     mkdir(['./Participant_Data/', nameID{1}]);
+% end
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
 % surrTonesSTs = zeros(1,length(surrDistST));
-<<<<<<< HEAD
+
 fs = 44100;
-toneLength = [0:(1/fs):.300];
-toneDuration = toneLength(1:end-1);
+toneDuration = .300;
 freqRamp = 1/(2*(.10));
 rampVector = [1:141];
 numTones = 7;
-
-for midiVal = 1:numTones
-=======
-
 toneLength = 0:(1/44100):.300;
-
 midiTones = zeros(1,128);
-for midiVal = 1:128
->>>>>>> e2593d1599931a8504d48ccaeb96d8b8c072853b
+nTones = 7;
+for midiVal = 1:nTones
     toneFrequency = 440*2^((midiVal - 69)/12);
     midiTones = sin(2*pi * toneFrequency * toneDuration);
     

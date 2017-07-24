@@ -21,7 +21,7 @@ trialPause = 0.5;
 toneRange = [2 4 6];
 meanPos = 1;
 tones = [];
-data = {};
+data = zeros(numTrial);
 subjectData = {};
 
 %% Input subject name & save
@@ -47,19 +47,25 @@ outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
 counterbalance = [highlow; outlierDiff; outlierPos];
 
-%% Actual experiment
+%% Repeat #6-#8 nIter times
 
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
 
 for trial = 1:numTrial
+    %% Actual experiment
+    
+    Screen('Flip', window);
+    
+    % Generate semitone numbers
     outlierData = counterbalance(trial,:);
-    outlierTone = ((outlierData(1) - 0.5) * 2) * outlierData(2);
-    
     nonOutliers = randsample([-toneRange toneRange], numTones - 1);
-    pos = nonOutliers(3);
-    allTones = [nonOutliers(1:(pos - 1)) outlierTone nonOutliers(pos:end)];
-    toneVectors = midiTones((allTones + meanTone));
     
+    % Randomly shuffle tones to be played
+    pos = nonOutliers(2);
+    allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
+    toneVectors = midiTones(allTones + meanTone);
+    
+    % Loop through and play all tones
     for toneNum = 1:numTones
         PsychPortAudio('FillBuffer', handle, toneVectors(toneNum));
         PsychPortAudio('Start', handle, 1, 0, 1);
@@ -67,16 +73,46 @@ for trial = 1:numTrial
         PsychPortAudio('Stop', handle);
     end
     
+    %% Asking whether high or low
+    
+    % Give instructions
+    msg1 = 'Press h if the outlier tone is higher than the mean.';
+    msg2 = 'Press l if the outlier tone is lower than the mean.';
+    
+    % Display instructions
+    Screen('DrawText', window, msg1, window_w/2 - 250, window_h/2 - 25);
+    Screen('DrawText', window, msg2, window_w/2 - 250, window_h/2);
+    Screen('Flip', window);
+    
+    %% Saving response
+    
+    KbName('UnifyKeyNames');
+
+    while true
+        % Check which key was pressed
+        [keyDown, secs, keyCode, deltaSecs] = KbCheck(-1); % -1 represents the defaut device
+        key = KbName(find(keyCode));
+        
+        % Record response if one of the two keys is pressed
+        if strcmp(key, 'h')
+            response = 'h';
+            break;
+        end
+        if strcmp(key, 'l')
+            response = 'l';
+            break;
+        end
+    end
+    
+    % Check accuracy of response
+    if (response == 'h' && outlierData(1) > 0) || (response == 'l' && outlierData(1) < 0)
+        data(trial) = 1;
+    end
+    
     WaitSecs(trialPause);
 end
 
 PsychPortAudio('Close', handle);
-
-%% Asking whether high or low
-
-%% Saving response
-
-%% Repeat #6-#8 nIter times
 
 %% Save result
 

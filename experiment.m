@@ -44,6 +44,22 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 
 %% Actual experiment 
 
+handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
+
+for trial = 1:numTrial
+    outlier_data = counterbalance(trial,:);
+    
+    
+    PsychPortAudio('FillBuffer', handle, mytone);
+    PsychPortAudio('Start', handle, 1, 0, 1);
+    WaitSecs(tonePause);
+    PsychPortAudio('Stop', handle);
+    
+    WaitSecs(trialPause);
+end
+
+PsychPortAudio('Close', handle);
+
 %% Asking whether high or low
 
 %% Saving response

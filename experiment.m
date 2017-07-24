@@ -50,6 +50,9 @@ end
 
 %% Task instructions
 
+% Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone than the average tone, press the "H" key. If the outlier is a lower tone, press the "L" key.', center(1)-320, 70);
+% Screen('Flip', window); 
+
 %% Counterbalancing
 
 highlow = mod(randperm(numTrial), 2); %1 if high, 0 if low

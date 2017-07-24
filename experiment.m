@@ -55,12 +55,9 @@ WaitSecs(.300);
 PsychPortAudio('Stop', handle);
 PsychPortAudio('Close', handle);
 
-<<<<<<< HEAD
 % offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 % onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
-offset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
-onset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
 
 %% Task instructions

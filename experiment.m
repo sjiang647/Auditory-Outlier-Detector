@@ -33,12 +33,18 @@ subjectData = {};
 
 %% Input subject name & save
 
+<<<<<<< HEAD
 % inputWindow = inputdlg({'Name','Gender','Age'},...
 %               'Customer', [1 50; 1 12; 1 7]);
           
+=======
+inputWindow = inputdlg({'Name','Gender','Age'},...
+    'Customer', [1 50; 1 12; 1 7]);
+
+>>>>>>> 47140f0d07a7e526d26dc533bdfb298ce573c135
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
-% 
+%
 % if ~isdir([current, '/Participant_Data/', nameID])
 %     mkdir([current, '/Participant_Data/', nameID]);
 % end
@@ -50,18 +56,24 @@ for midiVal = 1:128
     midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
 end 
 
-%% Task instructions 
-%     Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier. If the outlier is a higher tone, press the ?H? key. If the outlier is a lower tone, press the ?L? key.', x1, y1-25);
-%     Screen('Flip',window);  
-%% Counterbalancing 
 
-%% Actual experiment 
+%% Task instructions
+
+%% Counterbalancing
+highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
+outlierPos = mod(randperm(numTrial), 7) + 1;
+counterbalance = [highlow;outlierDiff;outlierPos];
+
+
+
+%% Actual experiment
 
 %% Asking whether high or low
 
 %% Saving response
 
-%% Repeat #6-#8 nIter times 
+%% Repeat #6-#8 nIter times
 
 %% Save result
 

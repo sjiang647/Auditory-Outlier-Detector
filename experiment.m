@@ -63,8 +63,11 @@ end
 highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
 outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
-counterbalance = [highlow;outlierDiff;outlierPos];
-
+for i = 1:numTrial
+    if highlow(i) == 0
+    outlierDiff(i) = -outlierDiff(i);
+    end
+end
 
 
 %% Actual experiment

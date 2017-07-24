@@ -28,15 +28,9 @@ data = {};
 subjectData = {};
 %% Input subject name & save
 
-<<<<<<< HEAD
-% inputWindow = inputdlg({'Name','Gender','Age'},...
-%               'Customer', [1 50; 1 12; 1 7]);
-          
-=======
+
 inputWindow = inputdlg({'Name','Gender','Age'},...
     'Customer', [1 50; 1 12; 1 7]);
-
->>>>>>> 47140f0d07a7e526d26dc533bdfb298ce573c135
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
 %

@@ -50,7 +50,15 @@ for midiVal = 1:128
     midiTones(midiVal) = sin(2*pi* toneFrequency * toneLength(midiVal));
 end 
 
+<<<<<<< HEAD
 
+%% Task instructions 
+
+
+
+%% Counterbalancing 
+=======
+>>>>>>> master
 offset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 onset = (1+siin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 

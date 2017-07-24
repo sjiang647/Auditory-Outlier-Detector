@@ -31,6 +31,7 @@ tonePause = 0.1;
 toneFrequency = 0;
 trialPause = 0.5;
 toneRange = [2 4 6];
+meanRange = 50:80;
 meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
@@ -97,14 +98,17 @@ for trial = 1:numTrial
     
     Screen('Flip', window);
     
+    % Define mean tone
+    meanTone = randsample(meanRange, 1);
+    
     % Generate semitone numbers
-    outlierData = counterbalance(trial,:);
+    outlierData = counterbalancing(trial,:);
     nonOutliers = randsample([-toneRange toneRange], numTones - 1);
     
     % Randomly shuffle tones to be played
     pos = nonOutliers(2);
     allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
-    toneVectors = midiTones(allTones + meanTone);
+    toneVectors = midiTones(allTones + meanTone, :);
     
     % Loop through and play all tones
     for toneNum = 1:numTones

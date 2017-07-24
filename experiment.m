@@ -27,22 +27,27 @@ subjectData = {};
 %% Input subject name & save
 
 inputWindow = inputdlg({'Name','Gender','Age'},...
-              'Customer', [1 50; 1 12; 1 7]);
-          
+    'Customer', [1 50; 1 12; 1 7]);
+
 % int = input('Participant Initial: ','s');
 % nameID = upper(int);
-% 
+%
 % if ~isdir([current, '/Participant_Data/', nameID])
 %     mkdir([current, '/Participant_Data/', nameID]);
 % end
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
-%% Task instructions 
+%% Task instructions
 
-%% Counterbalancing 
+%% Counterbalancing
+highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
+outlierPos = mod(randperm(numTrial), 7) + 1;
+counterbalance = [highlow;outlierDiff;outlierPos];
 
-%% Actual experiment 
+
+%% Actual experiment
 
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
 
@@ -64,7 +69,7 @@ PsychPortAudio('Close', handle);
 
 %% Saving response
 
-%% Repeat #6-#8 nIter times 
+%% Repeat #6-#8 nIter times
 
 %% Save result
 

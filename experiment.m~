@@ -41,6 +41,17 @@ inputWindow = inputdlg({'Name','Gender','Age'},...
 %% Task instructions 
 
 %% Counterbalancing 
+highlow = mod(randperm(numTrial), 2);%1 if high, 0 if low
+outlierDiff = mod(randperm(numTrial), 4) + 1;
+for i = 1:length(outlierDiff)
+    if outlierDiff(i) == 1
+    elseif outlierDiff(i) == 2
+        
+    end
+end 
+outlierPos = mod(randperm(numTrial), 7) + 1;
+counterbalance = [highlow;outlierDiff;outlierPos];
+
 
 %% Actual experiment 
 

@@ -3,7 +3,6 @@
 clear all;
 close all;
 clc;
-
 %% General Setups (variables, tone ramp, screen, etc.)
 
 % Screen('Preference', 'SkipSyncTests', 1);

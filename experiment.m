@@ -21,12 +21,9 @@ clc;
 numTrial = 10;
 numTones = 7;
 outlierRange = [6, 8, 10, 12];
-<<<<<<< HEAD
 outlierPos = 1;
-test = toneLength(1:end-1);
-=======
 toneLength = 0:1/44100:.300;
->>>>>>> master
+test = toneLength(1:end-1);
 tonePause = 0.1;
 toneFrequency = 0;
 trialPause = 0.5;
@@ -40,14 +37,15 @@ surrDistST = [-6,-4,-2,2,4,6];
 %% Input subject name & save
 
 
-inputWindow = inputdlg({'Name','Gender','Age'},...
-    'Customer', [1 50; 1 12; 1 7]);
-% int = input('Participant Initial: ','s');
-% nameID = upper(int);
-%
-% if ~isdir([current, '/Participant_Data/', nameID])
-%     mkdir([current, '/Participant_Data/', nameID]);
-% end
+inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
+    'Participant', [1 50; 1 12; 1 7]);
+nameID = upper(inputWindow(1));
+gender = upper(inputWindow(2));
+age = inputWindow(3);
+current = pwd;
+if ~isdir(['./Participant_Data/', nameID{1}])
+    mkdir(['./Participant_Data/', nameID{1}]);
+end
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
@@ -161,4 +159,6 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 
 %% Save result
-
+cd(['./Participant_Data/', nameID{1}]);
+save(nameID{1}, gender{1}, age{1});
+cd ..

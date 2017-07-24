@@ -4,7 +4,7 @@ clear all;
 close all;
 clc;
 
-%% General Setups (vars, tone ramp, screen, etc.)
+%% General Setups (variables, tone ramp, screen, etc.)
 
 % Screen('Preference', 'SkipSyncTests', 1);
 % [window, rect] = Screen('OpenWindow', 0);

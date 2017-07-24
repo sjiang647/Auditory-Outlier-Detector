@@ -69,6 +69,9 @@ for i = 1:numTrial
     end
 end
 
+counterbalancing = [outlierDiff; outlierPos];
+
+
 
 %% Actual experiment
 

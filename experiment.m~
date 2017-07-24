@@ -3,14 +3,24 @@
 clear all;
 close all;
 clc;
-
 %% General Setups (variables, tone ramp, screen, etc.)
 
 % Screen('Preference', 'SkipSyncTests', 1);
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
+<<<<<<< HEAD
 rng('shuffle');
+=======
+
+% 
+% window_w = rect(3);
+% window_h = rect(4); 
+% 
+% x1 = window_w/2;
+% y1 = window_h/2;
+
+>>>>>>> origin/master
 
 windowX = rect(3);
 windowY = rect(4); 
@@ -30,8 +40,9 @@ meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
 subjectData = {};%first is name, second gender, third age
-
+surrDistST = [-6,-4,-2,2,4,6];
 %% Input subject name & save
+
 
 inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
     'Participant', [1 50; 1 12; 1 7]);

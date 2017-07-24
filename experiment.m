@@ -10,6 +10,7 @@ clc;
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
+% 
 % window_w = rect(3);
 % window_h = rect(4); 
 % 
@@ -28,7 +29,7 @@ trialPause = 0.5;
 toneRange = [2 4 6];
 meanPos = 1;
 tones = [];
-data = zeros(numTrial);
+data = zeros(1, numTrial);
 subjectData = {};
 
 %% Input subject name & save
@@ -133,6 +134,7 @@ for trial = 1:numTrial
 end
 
 PsychPortAudio('Close', handle);
+Screen('CloseAll');
 
 %% Save result
 

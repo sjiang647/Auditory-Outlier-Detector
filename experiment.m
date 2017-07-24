@@ -10,15 +10,11 @@ clc;
 % [window, rect] = Screen('OpenWindow', 0);
 % Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 % HideCursor();
-% 
-% window_w = rect(3);
-% window_h = rect(4); 
-% 
-% x1 = window_w/2;
-% y1 = window_h/2;
-
 rng('shuffle');
 
+% windowX = rect(3);
+% windowY = rect(4); 
+% center = [windowX/2, windowY/2];
 numTrial = 10;
 numTones = 7;
 outlierRange = [6, 8, 10, 12];

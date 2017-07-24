@@ -6,15 +6,10 @@ clc;
 
 %% General Setups (vars, tone ramp, screen, etc.)
 
-numTrial = 10;
-outlierRange = [6 10 14 16];
-toneLength = 0.2;
-tonePause = 0.1;
-trialPause = 0.5;
-toneRange = [1 3 5];
-tones = [];
-data = {};
-subjectData = {};
+numTrial = 0;
+outlierRange = 0;
+toneLength = 0;
+tonePause = 0;
 
 
 %% Input subject name & save

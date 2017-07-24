@@ -4,14 +4,23 @@ clear all;
 close all;
 clc;
 
+
 %% General Setups (vars, tone ramp, screen, etc.)
+
+% Screen('Preference', 'SkipSyncTests', 1);
+% [window, rect] = Screen('OpenWindow', 0);
+% Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+% HideCursor();
+rng('shuffle');
 
 numTrial = 10;
 outlierRange = [6 10 14 16];
+outlierPos = 1;
 toneLength = 0.2;
 tonePause = 0.1;
 trialPause = 0.5;
-toneRange = [1 3 5];
+toneRange = [2 4 6];
+meanPos = 1;
 tones = [];
 data = {};
 subjectData = {};

@@ -16,25 +16,21 @@ center = [windowX/2, windowY/2];
 numTrial = 2;
 numTones = 7;
 outlierRange = [6 8 10 12];
-outlierPos = 1;
 toneLength = 0:1/44100:.300;
 test = toneLength(1:end-1);
 tonePause = 0.3;
-toneFrequency = 0;
 trialPause = 0.5;
 toneRange = [2 4 6];
 meanRange = 50:80;
-meanPos = 1;
-tones = [];
 data = zeros(1, numTrial);
-subjectData = {}; % first is first name, second last name, third gender, fourth age
+subjectData = cell(1, 6); % first is first name, second last name, third gender, fourth age
 
 %% Input subject name & save
 
-subjectData{1} = Ask(window,'First Name: ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{2} = Ask(window,'Last Name: ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{3} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{4} = str2num(Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop));
+subjectData{1} = Ask(window,'First Name: ',[],[],'GetChar',RectLeft,RectTop,25);
+subjectData{2} = Ask(window,'Last Name: ',[],[],'GetChar',RectLeft,RectTop,25);
+subjectData{3} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop,25);
+subjectData{4} = str2num(Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop,25));
 
 %% Task instructions
  
@@ -43,8 +39,7 @@ Screen('DrawText', window, 'If the outlier is a higher tone than the average ton
 Screen('DrawText', window, 'If the outlier is a lower tone than the average tone, press the "L" key.', center(1)-350, center(2));
 Screen('DrawText', window, 'Press any button to continue', center(1)-170, center(2)+66);
 Screen('Flip', window); 
-WaitSecs(3);
-KbWait;
+KbWait([], 2);
 
 %% Counterbalancing
 
@@ -144,6 +139,7 @@ for trial = 1:numTrial
     WaitSecs(trialPause);
 end
 
+subjectData{6} = data;
 PsychPortAudio('Close', handle);
 Screen('CloseAll');
 ShowCursor();
@@ -153,9 +149,11 @@ ShowCursor();
 if ~isdir(['Participant_data/', subjectData{1}])
     mkdir(['Participant_data/', subjectData{1}]);
 end
+
 cd(['Participant_data/', subjectData{1}]);
-save('subjectData');
-cd ..
+save('data', 'subjectData');
+cd('..');
+cd('..');
 
 
 

@@ -149,6 +149,10 @@ Screen('CloseAll');
 ShowCursor();
 
 %% Save results
+current = pwd;
+if ~isdir([current, '.Participant_data/', subjectData{1}])
+    makedir([current, '.Participant_data/', subjectData{1}]);
+end
 cd(['./Participant_Data/', subjectData{1}]);
 save('subjectData');
 cd ..

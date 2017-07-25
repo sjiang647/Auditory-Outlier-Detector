@@ -45,7 +45,7 @@ Screen('DrawText', window, 'If the outlier is a higher tone than the average ton
 Screen('DrawText', window, 'If the outlier is a lower tone than the average tone, press the "L" key.', center(1)-350, center(2));
 Screen('DrawText', window, 'Press any button to continue', center(1)-170, center(2)+66);
 Screen('Flip', window); 
-WaitSecs(5);
+WaitSecs(3);
 KbWait;
 
 

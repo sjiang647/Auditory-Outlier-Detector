@@ -78,10 +78,10 @@ onset = (1+sin(2*pi*freqRamp*rampVector./fs + (-pi/2)))/2;
 
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
-    midiTones = sin(2*pi* toneFrequency * toneLength);
-    tones = [onset midiTones offset];
-    finalTones = repmat(tones, 2, 1);
-    freq{k} = finalTones;
+    midiTones = sin(2*pi* toneFrequency * toneLength);%creating the tones in terms of frequency
+    tones = [onset midiTones offset]; %adding the onset and offset so that the sound is not too harsh
+    finalTones = repmat(tones, 2, 1); %duplicates the sound in order to hear through headphones
+    freq{k} = finalTones; % cell array with all tones ready for outputing 
 end  
 
 for trial = 1:numTrial

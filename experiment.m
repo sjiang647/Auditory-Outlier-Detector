@@ -29,13 +29,14 @@ meanRange = 50:80;
 meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
-subjectData = {};%first is name, second gender, third age
+subjectData = {};%first is first name, second last name, third gender, fourth age
 
 %% Input subject name & save
 
-subjectData{1} = Ask(window,'Name: ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{2} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{3} = Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{1} = Ask(window,'First Name: ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{2} = Ask(window,'Last Name: ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{3} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{4} = Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop);
 
 %% Task instructions
  
@@ -95,15 +96,11 @@ for trial = 1:numTrial
     % Generate semitone numbers
     outlierData = counterbalancing(trial,:); %the outlier should be a set distance away
     nonOutliers = randsample([-toneRange toneRange], numTones - 1); 
-    
 
-    
     % Randomly shuffle tones to be played
     pos = nonOutliers(2);
     allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
     toneVectors = midiTones(allTones + meanTone, :);
-
-
    
     % Loop through and play all tones
     for toneNum = 1:numTones
@@ -154,6 +151,7 @@ end
 
 PsychPortAudio('Close', handle);
 Screen('CloseAll');
+ShowCursor();
 
 %% Save result
 subjectData{4} = counterbalancing;

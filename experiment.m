@@ -61,6 +61,8 @@ for i = 1:numTrial
 end
 
 counterbalancing = [outlierDiff; outlierPos];
+subjectData{4} = counterbalancing;
+
 
 %% Repeat #6-#8 nIter times
 
@@ -75,7 +77,7 @@ fs = 44100;
 offset = (1+sin(2*pi*freqRamp*rampVector./fs + (pi/2)))/2;
 onset = (1+sin(2*pi*freqRamp*rampVector./fs + (-pi/2)))/2;
 
-
+freq = cell(1, 127);
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
     midiTones = sin(2*pi* toneFrequency * toneLength);%creating the tones in terms of frequency
@@ -93,21 +95,17 @@ for trial = 1:numTrial
     meanTone = randsample(meanRange, 1);
 
     % Generate semitone numbers
-    outlierData = counterbalancing(trial,:); %the outlier should be a set distance away
+    outlierData = counterbalancing(:,2); %the outlier should be a set distance away
     nonOutliers = randsample([-toneRange toneRange], numTones - 1); 
-    
 
-    
     % Randomly shuffle tones to be played
-    pos = nonOutliers(2);
+    pos = outlierData(2);
     allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
-    toneVectors = midiTones(allTones + meanTone, :);
+    toneVectors = freq(allTones + meanTone);
 
-
-   
     % Loop through and play all tones
     for toneNum = 1:numTones
-        PsychPortAudio('FillBuffer', handle, toneVectors(toneNum));
+        PsychPortAudio('FillBuffer', handle, toneVectors{toneNum});
         PsychPortAudio('Start', handle, 1, 0, 1);
         WaitSecs(tonePause);
         PsychPortAudio('Stop', handle);
@@ -156,7 +154,7 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 
 %% Save result
-subjectData{4} = counterbalancing;
 cd(['./Participant_Data/', subjectData{1}{1}]);
 save('subjectData');
 cd ..
+

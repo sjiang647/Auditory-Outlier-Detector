@@ -152,5 +152,5 @@ Screen('CloseAll');
 
 %% Save result
 cd(['./Participant_Data/', subjectData{1}{1}]);
-save(subjectData);
+save('subjectData');
 cd ..

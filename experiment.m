@@ -1,8 +1,6 @@
 %% Experiment 5: Auditory Outlier Detection
 
-clear all;
-close all;
-clc;
+clear all; close all; clc;
 
 %% General Setups (variables, tone ramp, screen, etc.)
 
@@ -17,7 +15,7 @@ windowY = rect(4);
 center = [windowX/2, windowY/2];
 numTrial = 10;
 numTones = 7;
-outlierRange = [6, 8, 10, 12];
+outlierRange = [6 8 10 12];
 outlierPos = 1;
 toneLength = 0:1/44100:.300;
 test = toneLength(1:end-1);
@@ -150,8 +148,7 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 ShowCursor();
 
-%% Save result
+%% Save results
 cd(['./Participant_Data/', subjectData{1}{1}]);
 save('subjectData');
 cd ..
-

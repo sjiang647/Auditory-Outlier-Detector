@@ -13,7 +13,7 @@ rng('shuffle');
 windowX = rect(3);
 windowY = rect(4); 
 center = [windowX/2, windowY/2];
-numTrial = 10;
+numTrial = 2;
 numTones = 7;
 outlierRange = [6 8 10 12];
 outlierPos = 1;
@@ -149,11 +149,11 @@ Screen('CloseAll');
 ShowCursor();
 
 %% Save results
-current = pwd;
-if ~isdir([current, './Participant_data/', subjectData{1}])
-    mkdir([current, './Participant_data/', subjectData{1}]);
+
+if ~isdir(['Participant_data/', subjectData{1}])
+    mkdir(['Participant_data/', subjectData{1}]);
 end
-cd(['./Participant_data/', subjectData{1}]);
+cd(['Participant_data/', subjectData{1}]);
 save('subjectData');
 cd ..
 

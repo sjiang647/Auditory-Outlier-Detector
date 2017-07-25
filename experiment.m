@@ -29,7 +29,7 @@ meanRange = 50:80;
 meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
-subjectData = {}; %first is first name, second last name, third gender, fourth age
+subjectData = {}; % first is first name, second last name, third gender, fourth age
 
 %% Input subject name & save
 
@@ -50,7 +50,7 @@ KbWait;
 
 %% Counterbalancing
 
-highlow = mod(randperm(numTrial), 2); %1 if high, 0 if low
+highlow = mod(randperm(numTrial), 2); % 1 if high, 0 if low
 outlierDiff = outlierRange(mod(randperm(numTrial), 4) + 1);
 outlierPos = mod(randperm(numTrial), 7) + 1;
 
@@ -67,7 +67,7 @@ subjectData{5} = counterbalancing;
 
 % Tuning sound (Convert Hz to MIDI semitones)
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
-toneLength = 0:(1/44100):.300; %use when to play the actual tones 
+toneLength = 0:(1/44100):.300; % use when to play the actual tones 
 toneDur = .300;
 midiTones = zeros(1,128);
 freqRamp = 1/(2*(0.1));
@@ -95,7 +95,7 @@ for trial = 1:numTrial
     meanTone = randsample(meanRange, 1);
 
     % Generate semitone numbers
-    outlierData = counterbalancing(:,2); %the outlier should be a set distance away
+    outlierData = counterbalancing(:,2); % the outlier should be a set distance away
     nonOutliers = randsample([-toneRange toneRange], numTones - 1); 
 
     % Randomly shuffle tones to be played

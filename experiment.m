@@ -150,7 +150,7 @@ ShowCursor();
 
 %% Save results
 cd(['./Participant_Data/', subjectData{1}]);
-save(subjectData);
+save('subjectData');
 cd ..
 
 

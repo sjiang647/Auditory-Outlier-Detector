@@ -149,7 +149,7 @@ Screen('CloseAll');
 ShowCursor();
 
 %% Save results
-cd(['./Participant_Data/', subjectData{1}{1}]);
+cd(['./Participant_Data/', subjectData{1}]);
 save(subjectData);
 cd ..
 

@@ -45,10 +45,6 @@ end
 
 %% Tuning sound (Convert Hz to MIDI semitones)
 
-% surrTonesSTs = zeros(1,length(surrDistST));
-
-
-
 %% Task instructions
  
 % Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier.\nIf the outlier is a higher tone than the average tone, press the "H" key.\nIf the outlier is a lower tone, press the "L" key.\nPress any button to continue', center(1)-320, center(2));
@@ -78,7 +74,6 @@ toneDur = .300;
 midiTones = zeros(1,128);
 offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
-tones = {};
 
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);

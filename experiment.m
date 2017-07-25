@@ -1,8 +1,6 @@
 %% Experiment 5: Auditory Outlier Detection
 
-clear all;
-close all;
-clc;
+clear all; close all; clc;
 
 %% General Setups (variables, tone ramp, screen, etc.)
 
@@ -17,7 +15,7 @@ windowY = rect(4);
 center = [windowX/2, windowY/2];
 numTrial = 10;
 numTones = 7;
-outlierRange = [6, 8, 10, 12];
+outlierRange = [6 8 10 12];
 outlierPos = 1;
 toneLength = 0:1/44100:.300;
 test = toneLength(1:end-1);
@@ -79,10 +77,10 @@ onset = (1+sin(2*pi*freqRamp*rampVector./fs + (-pi/2)))/2;
 freq = cell(1, 127);
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
-    midiTones = sin(2*pi* toneFrequency * toneLength); % creating the tones in terms of frequency
+    midiTones = sin(2*pi* toneFrequency * toneLength);%creating the tones in terms of frequency
     midiTones(1:441) = onset .* midiTones(1:441); 
-    midiTones(end -440: end) = offset .* midiTones(end - 440: end);
-    finalTones = repmat(midiTones, 2, 1); % duplicates the sound in order to hear through headphones
+    midiTones(end - 440: end) = offset .* midiTones(end - 440: end);
+    finalTones = repmat(midiTones, 2, 1); %duplicates the sound in order to hear through headphones
     freq{k} = finalTones; % cell array with all tones ready for outputing 
 end  
 
@@ -150,8 +148,10 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 ShowCursor();
 
-%% Save result
+%% Save results
 cd(['./Participant_Data/', subjectData{1}{1}]);
 save(subjectData);
 cd ..
+
+
 

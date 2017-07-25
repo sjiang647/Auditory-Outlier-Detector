@@ -72,14 +72,19 @@ handle = PsychPortAudio('Open', [], [], 0, 44100, 2);
 toneLength = 0:(1/44100):.300; %use when to play the actual tones 
 toneDur = .300;
 midiTones = zeros(1,128);
-offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
-onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
+freqRamp = 1/(2*(.10));
+rampVector = [1:141];
+fs = 44100;
+offset = (1+sin(2*pi*freqRamp*rampVector./fs + (pi/2)))/2;
+onset = (1+sin(2*pi*freqRamp*rampVector./fs + (-pi/2)))/2;
+
 
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
     midiTones = sin(2*pi* toneFrequency * toneLength);
-    midiTones = repmat(midiTones, 2, 1);
-    freq{k} = midiTones;
+    tones = [onset midiTones offset];
+    finalTones = repmat(tones, 2, 1);
+    freq{k} = finalTones;
 end  
 
 for trial = 1:numTrial

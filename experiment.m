@@ -82,8 +82,9 @@ freq = cell(1, 127);
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
     midiTones = sin(2*pi* toneFrequency * toneLength);%creating the tones in terms of frequency
-    tones = [onset midiTones offset]; %adding the onset and offset so that the sound is not too harsh
-    finalTones = repmat(tones, 2, 1); %duplicates the sound in order to hear through headphones
+    midiTones(1:141) = onset .* midiTones(1:141); 
+    midiTones(end -140: end) = offset .* midiTones(end - 140: end);
+    finalTones = repmat(midiTones, 2, 1); %duplicates the sound in order to hear through headphones
     freq{k} = finalTones; % cell array with all tones ready for outputing 
 end  
 

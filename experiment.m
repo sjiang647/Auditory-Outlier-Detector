@@ -6,10 +6,10 @@ clc;
 
 %% General Setups (variables, tone ramp, screen, etc.)
 
- Screen('Preference', 'SkipSyncTests', 1);
- [window, rect] = Screen('OpenWindow', 0);
- Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
- HideCursor();
+Screen('Preference', 'SkipSyncTests', 1);
+[window, rect] = Screen('OpenWindow', 0);
+Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+HideCursor();
 rng('shuffle');
 
 windowX = rect(3);
@@ -33,23 +33,18 @@ subjectData = {};%first is name, second gender, third age
 
 %% Input subject name & save
 
-inputWindow = inputdlg({'Name','Gender(M/F)','Age'},...
-    'Participant', [1 50; 1 12; 1 7]);
-subjectData{1} = upper(inputWindow(1));
-subjectData{2} = upper(inputWindow(2));
-subjectData{3} = inputWindow(3);
-current = pwd;
-if ~isdir(['./Participant_Data/', subjectData{1}{1}])
-    mkdir(['./Participant_Data/', subjectData{1}{1}]);
-end
-
-%% Tuning sound (Convert Hz to MIDI semitones)
+subjectData{1} = Ask(window,'Name: ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{2} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{3} = Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop);
 
 %% Task instructions
  
-% Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier.\nIf the outlier is a higher tone than the average tone, press the "H" key.\nIf the outlier is a lower tone, press the "L" key.\nPress any button to continue', center(1)-320, center(2));
-% Screen('Flip', window); 
-%KbWait;
+Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier.', center(1)-300, center(2)-20);
+Screen('DrawText', window, 'If the outlier is a higher tone than the average tone, press the "H" key.', center(1)-350, center(2));
+Screen('DrawText', window, 'If the outlier is a lower tone, press the "L" key.', center(1)-320, center(2)+20);
+Screen('DrawText', window, 'Press any button to continue', center(1)-200, center(2)+60);
+Screen('Flip', window); 
+KbWait;
 
 
 %% Counterbalancing
@@ -68,6 +63,7 @@ counterbalancing = [outlierDiff; outlierPos];
 
 %% Repeat #6-#8 nIter times
 
+% Tuning sound (Convert Hz to MIDI semitones)
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
 toneLength = 0:(1/44100):.300; %use when to play the actual tones 
 toneDur = .300;
@@ -78,7 +74,7 @@ onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 for k = 1:127 
     toneFrequency = 440*2^((k-69)/12);
     midiTones = sin(2*pi* toneFrequency * toneLength);
-    midiTones = repmat(midiTones, 2, 1);
+    midiTones = repmat(midiTones, 2, :);
     freq{k} = midiTones;
 end  
 

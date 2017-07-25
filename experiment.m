@@ -29,7 +29,7 @@ meanRange = 50:80;
 meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
-subjectData = {};%first is first name, second last name, third gender, fourth age
+subjectData = {}; %first is first name, second last name, third gender, fourth age
 
 %% Input subject name & save
 
@@ -45,7 +45,7 @@ Screen('DrawText', window, 'If the outlier is a higher tone than the average ton
 Screen('DrawText', window, 'If the outlier is a lower tone than the average tone, press the "L" key.', center(1)-350, center(2));
 Screen('DrawText', window, 'Press any button to continue', center(1)-170, center(2)+66);
 Screen('Flip', window); 
-WaitSecs(5);
+WaitSecs(3);
 KbWait;
 
 
@@ -62,7 +62,7 @@ for i = 1:numTrial
 end
 
 counterbalancing = [outlierDiff; outlierPos];
-subjectData{4} = counterbalancing;
+subjectData{5} = counterbalancing;
 
 
 %% Repeat #6-#8 nIter times

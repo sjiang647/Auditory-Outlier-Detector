@@ -39,11 +39,12 @@ subjectData{3} = Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop);
 
 %% Task instructions
  
-Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier.', center(1)-300, center(2)-20);
-Screen('DrawText', window, 'If the outlier is a higher tone than the average tone, press the "H" key.', center(1)-350, center(2));
-Screen('DrawText', window, 'If the outlier is a lower tone, press the "L" key.', center(1)-320, center(2)+20);
-Screen('DrawText', window, 'Press any button to continue', center(1)-200, center(2)+60);
+Screen('DrawText', window, 'You will listen to 7 audio tones. 1 tone is an outlier.', center(1)-275, center(2)-60);
+Screen('DrawText', window, 'If the outlier is a higher tone than the average tone, press the "H" key.', center(1)-350, center(2)-30);
+Screen('DrawText', window, 'If the outlier is a lower tone than the average tone, press the "L" key.', center(1)-350, center(2));
+Screen('DrawText', window, 'Press any button to continue', center(1)-170, center(2)+66);
 Screen('Flip', window); 
+WaitSecs(5);
 KbWait;
 
 

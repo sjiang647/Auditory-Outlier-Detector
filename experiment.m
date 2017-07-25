@@ -6,10 +6,10 @@ clc;
 
 %% General Setups (variables, tone ramp, screen, etc.)
 
-% Screen('Preference', 'SkipSyncTests', 1);
-% [window, rect] = Screen('OpenWindow', 0);
-% Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-% HideCursor();
+ Screen('Preference', 'SkipSyncTests', 1);
+ [window, rect] = Screen('OpenWindow', 0);
+ Screen('BlendFunction', window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+ HideCursor();
 rng('shuffle');
 
 windowX = rect(3);
@@ -47,22 +47,7 @@ end
 
 % surrTonesSTs = zeros(1,length(surrDistST));
 
-toneLength = 0:(1/44100):.300;
 
-midiTones = zeros(1,128);
-for midiVal = 1:128
-    toneFrequency = 440*2^((midiVal - 69)/12);
-    midiTones = sin(2*pi* toneFrequency * test);
-end
-handle = PsychPortAudio('Open', [], [], 0, 44100,2);
-PsychPortAudio('FillBuffer', handle, midiTones);
-PsychPortAudio('Start', handle,1,0,1);
-WaitSecs(.300);
-PsychPortAudio('Stop', handle);
-PsychPortAudio('Close', handle);
-
-% offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
-% onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
 %% Task instructions
  
@@ -88,6 +73,11 @@ counterbalancing = [outlierDiff; outlierPos];
 %% Repeat #6-#8 nIter times
 
 handle = PsychPortAudio('Open', [], [], 0, 44100, 2); 
+toneLength = 0:(1/44100):.300; %use when to play the actual tones 
+toneDur = .300;
+midiTones = zeros(1,128);
+offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
+onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
 
 for trial = 1:numTrial
     %% Actual experiment
@@ -96,16 +86,20 @@ for trial = 1:numTrial
     
     % Define mean tone
     meanTone = randsample(meanRange, 1);
-    
+
     % Generate semitone numbers
-    outlierData = counterbalancing(trial,:);
-    nonOutliers = randsample([-toneRange toneRange], numTones - 1);
+    outlierData = counterbalancing(trial,:); %the outlier should be a set distance away
+    nonOutliers = randsample([-toneRange toneRange], numTones - 1); 
+    
+
     
     % Randomly shuffle tones to be played
     pos = nonOutliers(2);
     allTones = [nonOutliers(1:(pos - 1)) outlierData(1) nonOutliers(pos:end)];
     toneVectors = midiTones(allTones + meanTone, :);
-    
+
+
+   
     % Loop through and play all tones
     for toneNum = 1:numTones
         PsychPortAudio('FillBuffer', handle, toneVectors(toneNum));

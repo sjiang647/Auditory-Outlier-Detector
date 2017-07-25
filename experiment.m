@@ -150,8 +150,8 @@ ShowCursor();
 
 %% Save results
 current = pwd;
-if ~isdir([current, '.Participant_data/', subjectData{1}])
-    mkdir([current, '.Participant_data/', subjectData{1}]);
+if ~isdir([current, './Participant_data/', subjectData{1}])
+    mkdir([current, './Participant_data/', subjectData{1}]);
 end
 cd(['./Participant_data/', subjectData{1}]);
 save('subjectData');

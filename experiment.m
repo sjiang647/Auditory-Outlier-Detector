@@ -29,7 +29,7 @@ meanRange = 50:80;
 meanPos = 1;
 tones = [];
 data = zeros(1, numTrial);
-subjectData = {};%first is first name, second last name, third gender, fourth age
+subjectData = {}; %first is first name, second last name, third gender, fourth age
 
 %% Input subject name & save
 
@@ -62,7 +62,7 @@ for i = 1:numTrial
 end
 
 counterbalancing = [outlierDiff; outlierPos];
-subjectData{4} = counterbalancing;
+subjectData{5} = counterbalancing;
 
 
 %% Repeat #6-#8 nIter times

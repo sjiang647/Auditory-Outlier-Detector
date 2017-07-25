@@ -154,6 +154,7 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 
 %% Save result
+subjectData{4} = counterbalancing;
 cd(['./Participant_Data/', subjectData{1}{1}]);
 save('subjectData');
 cd ..

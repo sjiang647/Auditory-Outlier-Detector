@@ -78,6 +78,14 @@ toneDur = .300;
 midiTones = zeros(1,128);
 offset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (pi/2)))/2;
 onset = (1+sin(2*pi*Freq_ramp*rampvector./fs + (-pi/2)))/2;
+tones = {};
+
+for k = 1:127 
+    toneFrequency = 440*2^((k-69)/12);
+    midiTones = sin(2*pi* toneFrequency * toneLength);
+    midiTones = repmat(midiTones, 2, 1);
+    freq{k} = midiTones;
+end  
 
 for trial = 1:numTrial
     %% Actual experiment

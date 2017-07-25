@@ -61,6 +61,8 @@ for i = 1:numTrial
 end
 
 counterbalancing = [outlierDiff; outlierPos];
+subjectData{4} = counterbalancing;
+
 
 %% Repeat #6-#8 nIter times
 
@@ -152,7 +154,7 @@ PsychPortAudio('Close', handle);
 Screen('CloseAll');
 
 %% Save result
-subjectData{4} = counterbalancing;
 cd(['./Participant_Data/', subjectData{1}{1}]);
 save('subjectData');
 cd ..
+

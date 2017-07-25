@@ -36,7 +36,7 @@ subjectData = {}; %first is first name, second last name, third gender, fourth a
 subjectData{1} = Ask(window,'First Name: ',[],[],'GetChar',RectLeft,RectTop);
 subjectData{2} = Ask(window,'Last Name: ',[],[],'GetChar',RectLeft,RectTop);
 subjectData{3} = Ask(window,'Gender(M/F): ',[],[],'GetChar',RectLeft,RectTop);
-subjectData{4} = Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop);
+subjectData{4} = str2num(Ask(window,'Age: ',[],[],'GetChar',RectLeft,RectTop));
 
 %% Task instructions
  
@@ -47,7 +47,6 @@ Screen('DrawText', window, 'Press any button to continue', center(1)-170, center
 Screen('Flip', window); 
 WaitSecs(3);
 KbWait;
-
 
 %% Counterbalancing
 
@@ -63,7 +62,6 @@ end
 
 counterbalancing = [outlierDiff; outlierPos];
 subjectData{5} = counterbalancing;
-
 
 %% Repeat #6-#8 nIter times
 
@@ -116,12 +114,8 @@ for trial = 1:numTrial
     %% Asking whether high or low
     
     % Give instructions
-    msg1 = 'Press h if the outlier tone is higher than the mean.';
-    msg2 = 'Press l if the outlier tone is lower than the mean.';
-    
-    % Display instructions
-    Screen('DrawText', window, msg1, center(1) - 250, center(2) - 25);
-    Screen('DrawText', window, msg2, center(1) - 250, center(2));
+    Screen('DrawText', window, 'Press h if the outlier tone is higher than the mean.', center(1) - 250, center(2) - 25);
+    Screen('DrawText', window, 'Press l if the outlier tone is lower than the mean.', center(1) - 250, center(2));
     Screen('Flip', window);
     
     %% Saving response

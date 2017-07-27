@@ -89,7 +89,7 @@ for trial = 1:numTrial
     meanTone = randsample(meanRange, 1);
 
     % Generate semitone numbers
-    outlierData = counterbalancing(:,2); % the outlier should be a set distance away
+    outlierData = counterbalancing(:,trial); % the outlier should be a set distance away
     nonOutliers = randsample([-toneRange toneRange], numTones - 1); 
 
     % Randomly shuffle tones to be played
@@ -131,7 +131,7 @@ for trial = 1:numTrial
             break;
         end
     end
-    
+
     % Check accuracy of response
     if (response == 'h' && outlierData(1) > 0) || (response == 'l' && outlierData(1) < 0)
         data(trial) = 1;

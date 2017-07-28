@@ -13,7 +13,7 @@ rng('shuffle');
 windowX = rect(3);
 windowY = rect(4); 
 center = [windowX/2, windowY/2];
-numTrial = 56;
+numTrial = 200;
 numTones = 7;
 outlierRange = [6 8 10 12];
 toneLength = 0:1/44100:.300;

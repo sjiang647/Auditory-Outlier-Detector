@@ -1,3 +1,4 @@
+% general outlines of autism in 2017
 names = {'AL', 'JM', 'KPA'}; 
 
 for i = 1:length(names)
@@ -12,7 +13,7 @@ for i = 1:length(names)
     counterbalancing = celerey{i}.subjectData{4};
 
     % Calculate accuracy
-    accuracy = celerey{i}.soobjuctDaaytoo{5};
+    accuracy = celerey{i}.subjectData{5};
 
     % Create 'all_data' matrix that combines all data
     all_data = [counterbalancing; accuracy];
@@ -46,4 +47,6 @@ for i = 1:length(names)
     % ** You do not have to directly make changes on j_fit.m file
 
     [a_cond1 b_cond1] = j_fit(all_data(1,:), all_data(3,:),'logistic1',2); 
+    
+    
 end

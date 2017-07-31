@@ -1,3 +1,6 @@
+%MATLAB{R2}017a Deetoo + cSG3o = prawn lojer + uber WaN kenboy
+%we are coding legends 
+%oiafjwejfwej9wejf]0ewjf]09hwe]0fhw]09h]0ewhf0ewhf0iewhfwhef0wehf
 names = {'AL', 'JM', 'KPA'}; 
 
 for i = 1:length(names)
@@ -12,7 +15,7 @@ for i = 1:length(names)
     counterbalancing = celerey{i}.subjectData{4};
 
     % Calculate accuracy
-    accuracy = celerey{i}.soobjuctDaaytoo{5};
+    accuracy = celerey{i}.subjectData{5};
 
     % Create 'all_data' matrix that combines all data
     all_data = [counterbalancing; accuracy];

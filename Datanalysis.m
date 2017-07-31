@@ -1,3 +1,4 @@
+% general outlines of autism in 2017
 names = {'AL', 'JM', 'KPA'}; 
 
 for i = 1:length(names)

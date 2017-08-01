@@ -1,5 +1,5 @@
 % general outlines of autism in 2017
-names = {'AL', 'JM', 'KPA'}; 
+names = {'KPA', 'jm', 'AL'}; 
 
 for i = 1:length(names)
     %% 1. Cleaning data
@@ -7,7 +7,7 @@ for i = 1:length(names)
     % Iteratively call in individual subject data
 
     % Create a matrix for each data
-    celerey{i} =  load(['AData/' names{i} '/data.mat']);
+    celerey{i} =  load(['Auditory_Outlier/' names{i} '/data.mat']);
 
     % Organize data so that outlier distance accounts for both +/-
     counterbalancing = celerey{i}.subjectData{4};
@@ -33,7 +33,7 @@ for i = 1:length(names)
     % So, for negative outlier distances, we want to flip accuracies of 0s
     % to 1s and 1s to 0s
 
-        for j = 1:length(all_data)
+    for j = 1:length(all_data)
         if all_data(1, j) < 0
             all_data(3, j) = 1 - all_data(3, j);
         end
@@ -54,5 +54,5 @@ for i = 1:length(names)
 
     % ** You do not have to directly make changes on j_fit.m file
 
-    [a_cond1 b_cond1] = j_fit(outlier_diffs, accuracy_percentage,'logistic1',2); 
+    [a_cond1, b_cond1] = j_fit(all_data(1,:)', all_data(3,:)','logistic1',2); 
 end

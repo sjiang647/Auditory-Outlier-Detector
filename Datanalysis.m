@@ -7,13 +7,13 @@ for i = 1:length(names)
     % Iteratively call in individual subject data
 
     % Create a matrix for each data
-    celerey{i} =  load(['Auditory_Outlier/' names{i} '/data.mat']);
+    cellArray{i} =  load(['Auditory_Outlier/' names{i} '/data.mat']);
 
     % Organize data so that outlier distance accounts for both +/-
-    counterbalancing = celerey{i}.subjectData{4};
+    counterbalancing = cellArray{i}.subjectData{4};
 
     % Calculate accuracy
-    accuracy = celerey{i}.subjectData{5};
+    accuracy = cellArray{i}.subjectData{5};
 
     % Create 'all_data' matrix that combines all data
     all_data = [counterbalancing; accuracy];
